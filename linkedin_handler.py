@@ -4,6 +4,7 @@ import json
 
 class LinkedinHandler:
     ACCESS_TOKEN = <Token>
+    ME_RESOURCE = "/me"
     POSTS_RESOURCE = "/posts"
     API_VERSION = "202302"
 
