@@ -16,7 +16,6 @@ api_url = 'https://www.linkedin.com/oauth/v2'
 
 
 class LinkedinHandler:
-
     __auth_code = ''
     __access_token = ''
     __headers= ''
