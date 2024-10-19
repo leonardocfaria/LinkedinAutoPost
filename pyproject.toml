@@ -1,0 +1,33 @@
+[project]
+name = "LinkedinAutoPost"
+version = "1.0.0"
+description = "Linkedin chatgpt integration"
+authors = [
+    {name = "Andre Faria", email = "andremarcalfaria@gmail.com"},
+]
+dependencies = [
+    "requests>=2.32.3",
+    "openai>=1.52.0",
+    "toml>=0.10.2",
+    "dynaconf>=3.2.6",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.10.0",
+    "isort>=5.13.2",
+]
+
+[tool.pdm.scripts]
+linkedinautopost = {call = "linkedinautopost:main"}
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[tool.pdm]
+distribution = true
