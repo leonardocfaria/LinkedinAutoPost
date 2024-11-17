@@ -10,6 +10,7 @@ dependencies = [
     "openai>=1.52.0",
     "toml>=0.10.2",
     "dynaconf>=3.2.6",
+    "flask>=3.1.0",
 ]
 requires-python = ">=3.10"
 readme = "README.md"
@@ -22,7 +23,7 @@ dev = [
 ]
 
 [tool.pdm.scripts]
-linkedinautopost = {call = "linkedinautopost:main"}
+linkedinautopost = {call = "linkedinautopost.main:main"}
 
 [build-system]
 requires = ["hatchling"]

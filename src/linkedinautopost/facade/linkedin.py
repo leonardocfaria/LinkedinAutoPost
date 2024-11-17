@@ -15,38 +15,14 @@ class LinkedIn:
     __headers = ""
     __user_info = ""
 
-    def __init__(self):
-        self.get_auth_code()
-        self.get_access_token()
-        self.get_headers()
-        self.get_user_info()
-
-    def parse_redirect_uri(self, redirect_response):
-        """
-        Parse redirect response into components.
-        Extract the authorized token from the redirect uri.
-        """
-
-        url = urlparse(redirect_response)
-        url = parse_qs(url.query)
-        return url["code"][0]
-
-    def save_token(self, filename, data):
-        """
-        Write token to credentials file.
-        """
-        data = json.dumps(data, indent=4)
-        with open(filename, "w") as f:
-            f.write(data)
-
     def get_auth_code(self):
         # Make a HTTP request to the server
         # Once authorized, will redirect to redirect_uri
 
         params = {
             "response_type": "code",
-            "client_id": config.credentials["client_id"],
-            "redirect_uri": config.credentials["redirect_uri"],
+            "client_id": config.credentials.get("client_id"),
+            "redirect_uri": config.credentials.get("redirect_uri"),
             "scope": "w_member_social openid email profile",
         }
 
@@ -54,15 +30,12 @@ class LinkedIn:
 
         webbrowser.open(response.url)
 
-        auth_code = input("Past code: ")
-        self.__auth_code = auth_code
-
-    def get_access_token(self):
+    def get_access_token(self, auth_code):
         params = {
             "grant_type": "authorization_code",
-            "code": f"{self.__auth_code}",
+            "code": f"{auth_code}",
             "client_id": config.credentials["client_id"],
-            "client_id": config.credentials["client_secret"],
+            "client_secret": config.credentials["client_secret"],
             "redirect_uri": config.credentials["redirect_uri"],
         }
 
@@ -73,6 +46,8 @@ class LinkedIn:
         )
         token = response.json()
         self.__access_token = token["access_token"]
+        self.get_headers()
+        self.get_user_info()
 
     def get_headers(self):
         self.__headers = {
@@ -102,4 +77,5 @@ class LinkedIn:
         response = requests.post(
             f"{LINKEDIN_POST_URL}/ugcPosts", headers=self.__headers, json=post_data
         )
-        print(response.json())
+        
+        return response.json()

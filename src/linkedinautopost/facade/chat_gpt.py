@@ -8,12 +8,18 @@ class ChatGPT:
     def __init__(self):
         self.client = OpenAI()
 
-    def ask_question(self, question):
+    def ask_question(self, description, skills):
+        final_question = "Event: " + description
+        if skills:
+            final_question += "\nSkills: "
+            for skill in skills:
+                final_question += f' {skill},'
+
         completion = self.client.chat.completions.create(
             model=LLM_DEFAULT_MODEL,
             messages=[
                 {"role": "system", "content": QUERY_INITIAL_PROMPT},
-                {"role": "user", "content": question},
+                {"role": "user", "content": final_question},
             ],
         )
 
