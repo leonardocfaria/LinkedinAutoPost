@@ -1,4 +1,4 @@
 [credentials]
-client_id = "77ro9xryiqs9ix"
-client_secret = "2J8mP6QxAYNRSAPN"
-redirect_uri = "http://localhost:8080/linkedin/callback"
+client_id = ""
+client_secret = ""
+redirect_uri = ""
